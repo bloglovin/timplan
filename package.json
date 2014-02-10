@@ -1,0 +1,28 @@
+{
+  "name": "timplan",
+  "description": "JSONSchema validation for hapi",
+  "version": "0.1.0",
+  "author": "Hugo Wetterberg <hugo@wetterberg.nu>",
+  "repository": "git://github.com/bloglovin/timplan",
+  "main": "index",
+  "license": "MIT",
+  "keywords": [
+    "hapi",
+    "plugin",
+    "validation",
+    "jsonschema"
+  ],
+  "engines": {
+    "node": "0.10.x"
+  },
+  "dependencies": {
+    "jsonschema": "git://github.com/hugowetterberg/jsonschema.git#feature/pre-validate-property",
+    "js-yaml": "~3.0.1"
+  },
+  "peerDependencies": {
+    "hapi": "2.x.x"
+  },
+  "devDependencies": {
+    "hapi": "2.x.x"
+  }
+}
