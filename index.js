@@ -119,14 +119,16 @@ Validator.prototype.payload = function (uri) {
 
 Validator.prototype.response = function(uri) {
   return this.schema(uri, {
-    propertyName: 'response'
+    propertyName: 'response',
+    severity: 'warn'
   });
 };
 
 Validator.prototype.schema = function (uri, options) {
   var validation = {
     propertyName: options.propertyName || options.definition,
-    preValidateProperty: options.coerce ? this.coerceType : null
+    preValidateProperty: options.coerce ? this.coerceType : null,
+    severity: options.severity || 'error'
   };
   validation.schema = this.baseUrl
     ? lib.url.resolve(this.baseUrl, uri)
@@ -155,6 +157,11 @@ Validator.prototype.validate = function (validation, object, options) {
     error = new Error('Failed validation: ' + result.errors.map(function stacks(error) {
       return error.stack;
     }).join(', '));
+  }
+
+  if (error && validation.severity == 'warn') {
+    console.error(validation.propertyName, 'failed validation:', error.message, 'Schema:', validation.schema);
+    error = null;
   }
 
   return error;
