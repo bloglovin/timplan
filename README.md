@@ -7,7 +7,6 @@ Timplan allows you to use JSON schemas instead of joi in hapi. It's still possib
 ```javascript
 var lib = {
   hapi: require('hapi'),
-  yaml: require('yaml'),
   timplan: require('timplan')
 };
 

@@ -1,3 +1,4 @@
+/* jshint node: true */
 'use strict';
 
 var lib = {
@@ -28,7 +29,7 @@ function Validator(options) {
     // If the schema declares a type and the property fails type validation.
     if (schema.type && this.attributes.type.call(this, instance, schema, options, ctx.makeChild(schema, property))) {
       var types = (schema.type instanceof Array) ? schema.type : [schema.type];
-      var coerced = undefined;
+      var coerced;
 
       // Go through the declared types until we find something that we can
       // coerce the value into.
@@ -132,9 +133,7 @@ Validator.prototype.schema = function (uri, options) {
     preValidateProperty: options.coerce ? this.coerceType : null,
     severity: options.severity || 'error'
   };
-  validation.schema = this.baseUrl
-    ? lib.url.resolve(this.baseUrl, uri)
-    : uri;
+  validation.schema = this.baseUrl ? lib.url.resolve(this.baseUrl, uri) : uri;
   if (options.definition) {
     validation.schema += '#/definitions/' + options.definition;
   }
@@ -144,11 +143,10 @@ Validator.prototype.schema = function (uri, options) {
 };
 
 Validator.prototype.context = function (baseUrl, schemaDir) {
-  return {
-    __proto__: this,
-    baseUrl: baseUrl,
-    schemaDir: schemaDir
-  };
+  return Object.create(this, {
+    baseUrl: {value: baseUrl},
+    schemaDir: {value: schemaDir}
+  });
 };
 
 Validator.prototype.validate = function (validation, object, options) {
