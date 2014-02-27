@@ -1,3 +1,5 @@
+'use strict';
+
 var lib = {
   url: require('url'),
   path: require('path'),
@@ -141,6 +143,14 @@ Validator.prototype.schema = function (uri, options) {
   return validation;
 };
 
+Validator.prototype.context = function (baseUrl, schemaDir) {
+  return {
+    __proto__: this,
+    baseUrl: baseUrl,
+    schemaDir: schemaDir
+  };
+};
+
 Validator.prototype.validate = function (validation, object, options) {
   var schema = {
     type: 'object',
@@ -159,6 +169,7 @@ Validator.prototype.validate = function (validation, object, options) {
     }).join(', '));
   }
 
+  // Let validation errors slide if the severity level is 'warn'
   if (error && validation.severity == 'warn') {
     console.error(validation.propertyName, 'failed validation:', error.message, 'Schema:', validation.schema);
     error = null;
