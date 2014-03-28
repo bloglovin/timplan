@@ -176,4 +176,10 @@ Validator.prototype.validate = function (validation, object, options) {
   return error;
 };
 
+// Register hapi plugin
+Validator.register = function (plugin, options, next) {
+  plugin.expose('validator', new Validator(options));
+  next();
+};
+
 exports.Validator = Validator;
