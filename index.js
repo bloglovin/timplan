@@ -137,9 +137,8 @@ Validator.prototype.schema = function (uri, options) {
   if (options.definition) {
     validation.schema += '#/definitions/' + options.definition;
   }
-  validation.validate = this.validate.bind(this, validation);
 
-  return validation;
+  return this.validate.bind(this, validation);
 };
 
 Validator.prototype.context = function (baseUrl, schemaDir) {
@@ -149,7 +148,7 @@ Validator.prototype.context = function (baseUrl, schemaDir) {
   });
 };
 
-Validator.prototype.validate = function (validation, object, options) {
+Validator.prototype.validate = function (validation, object, options, callback) {
   var schema = {
     type: 'object',
     '$ref': validation.schema
@@ -173,7 +172,7 @@ Validator.prototype.validate = function (validation, object, options) {
     error = null;
   }
 
-  return error;
+  callback(error);
 };
 
 // Register hapi plugin
