@@ -1,7 +1,7 @@
 {
   "name": "timplan",
   "description": "JSONSchema validation for hapi",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "author": "Hugo Wetterberg <hugo@wetterberg.nu>",
   "repository": "git://github.com/bloglovin/timplan",
   "main": "index",
@@ -20,9 +20,6 @@
     "js-yaml": "~3.0.1"
   },
   "peerDependencies": {
-    "hapi": "3.x.x"
-  },
-  "devDependencies": {
-    "hapi": "3.x.x"
+    "hapi": "6.x.x"
   }
 }
