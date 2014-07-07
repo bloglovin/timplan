@@ -12,7 +12,6 @@ var lib = {
 
 function Validator(options) {
   options = options || {};
-
   this.baseUrl = options.baseUrl;
   this.schemaDir = lib.path.resolve(options.schemaDir || '.');
 
@@ -84,8 +83,9 @@ Validator.prototype.request = function (uri) {
     throw new Error('Unknown schema ' + uri);
   }
 
-  if (schema.definitions.path) {
-    validate.path = this.path(uri);
+  if (schema.definitions.path || schema.definitions.params) {
+    var definition = schema.definitions.params ? 'params' : 'path';
+    validate.params = this.params(uri, definition);
   }
   if (schema.definitions.query) {
     validate.query = this.query(uri);
@@ -98,9 +98,13 @@ Validator.prototype.request = function (uri) {
 };
 
 Validator.prototype.path = function (uri) {
+  return this.params(uri, 'path');
+};
+
+Validator.prototype.params = function (uri, definition) {
   return this.schema(uri, {
-    definition: 'path',
-    propertyName: 'path',
+    definition: definition,
+    propertyName: 'params',
     coerce: true
   });
 };
@@ -180,5 +184,6 @@ exports.register = function (plugin, options, next) {
   plugin.expose('validator', new Validator(options));
   next();
 };
+
 
 exports.Validator = Validator;
