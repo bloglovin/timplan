@@ -58,6 +58,12 @@ Validator.prototype.addSchema = function (path) {
   }
 };
 
+Validator.prototype.getSchema = function (uri) {
+  // Remove fragment
+  var base = uri.replace(/#.*$/, '')
+  return this.validator.schemas[base];
+};
+
 Validator.prototype.addYamlSchema = function (path) {
   var resolvedPath = lib.path.resolve(this.schemaDir, path);
   if (lib.fs.existsSync(resolvedPath)) {
@@ -142,7 +148,9 @@ Validator.prototype.schema = function (uri, options) {
     validation.schema += '#/definitions/' + options.definition;
   }
 
-  return this.validate.bind(this, validation);
+  var func = this.validate.bind(this, validation);
+  func.uri = validation.schema;
+  return func;
 };
 
 Validator.prototype.context = function (baseUrl, schemaDir) {
