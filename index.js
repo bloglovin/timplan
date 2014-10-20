@@ -1,21 +1,19 @@
 /* jshint node: true */
 'use strict';
 
-var lib = {
-  url: require('url'),
-  path: require('path'),
-  fs: require('fs'),
-  jsonschema: require('jsonschema'),
-  yaml: require('js-yaml'),
-  coercions: require('./lib/coercions')
-};
+var mod_url = require('url');
+var mod_path = require('path');
+var mod_fs = require('fs');
+var mod_jsonschema = require('jsonschema');
+var mod_yaml = require('js-yaml');
+var mod_coercions = require('./lib/coercions');
 
 function Validator(options) {
   options = options || {};
   this.baseUrl = options.baseUrl;
-  this.schemaDir = lib.path.resolve(options.schemaDir || '.');
+  this.schemaDir = mod_path.resolve(options.schemaDir || '.');
 
-  this.validator = new lib.jsonschema.Validator();
+  this.validator = new mod_jsonschema.Validator();
 
   this.coerceType = function (instance, property, schema, options, ctx) {
     var value = instance[property];
@@ -34,9 +32,9 @@ function Validator(options) {
       // coerce the value into.
       for (var i = 0; typeof coerced == 'undefined' && i < types.length; i++) {
         // If we support coercion to this type
-        if (lib.coercions[types[i]]) {
+        if (mod_coercions[types[i]]) {
           // ...attempt it.
-          coerced = lib.coercions[types[i]](value);
+          coerced = mod_coercions[types[i]](value);
         }
       }
       // If we got a successful coercion we modify the property of the instance.
@@ -48,8 +46,8 @@ function Validator(options) {
 }
 
 Validator.prototype.addSchema = function (path) {
-  var resolvedPath = lib.path.resolve(this.schemaDir, path);
-  if (lib.fs.existsSync(resolvedPath)) {
+  var resolvedPath = mod_path.resolve(this.schemaDir, path);
+  if (mod_fs.existsSync(resolvedPath)) {
     var schema = require(resolvedPath);
     this.validator.addSchema(schema);
   }
@@ -60,16 +58,16 @@ Validator.prototype.addSchema = function (path) {
 
 Validator.prototype.getSchema = function (uri) {
   // Remove fragment
-  var base = uri.replace(/#.*$/, '')
+  var base = uri.replace(/#.*$/, '');
   return this.validator.schemas[base];
 };
 
 Validator.prototype.addYamlSchema = function (path) {
-  var resolvedPath = lib.path.resolve(this.schemaDir, path);
-  if (lib.fs.existsSync(resolvedPath)) {
-    var source = lib.fs.readFileSync(resolvedPath, {encoding:'utf8'});
+  var resolvedPath = mod_path.resolve(this.schemaDir, path);
+  if (mod_fs.existsSync(resolvedPath)) {
+    var source = mod_fs.readFileSync(resolvedPath, {encoding:'utf8'});
     try {
-      var schema = lib.yaml.safeLoad(source);
+      var schema = mod_yaml.safeLoad(source);
       this.validator.addSchema(schema);
     } catch (parseError) {
       throw new Error('Failed to parse yaml schema: ' + parseError.message);
@@ -82,7 +80,7 @@ Validator.prototype.addYamlSchema = function (path) {
 
 Validator.prototype.request = function (uri) {
   var validate = {};
-  uri = lib.url.resolve(this.baseUrl, uri);
+  uri = mod_url.resolve(this.baseUrl, uri);
   var schema = this.validator.schemas[uri];
 
   if (!schema) {
@@ -143,7 +141,7 @@ Validator.prototype.schema = function (uri, options) {
     preValidateProperty: options.coerce ? this.coerceType : null,
     severity: options.severity || 'error'
   };
-  validation.schema = this.baseUrl ? lib.url.resolve(this.baseUrl, uri) : uri;
+  validation.schema = this.baseUrl ? mod_url.resolve(this.baseUrl, uri) : uri;
   if (options.definition) {
     validation.schema += '#/definitions/' + options.definition;
   }
