@@ -192,6 +192,8 @@ exports.register = function (plugin, options, next) {
   plugin.expose('validator', new Validator(options));
   next();
 };
-
+exports.register.attributes = {
+  pkg: require('./package'),
+};
 
 exports.Validator = Validator;
