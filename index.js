@@ -8,6 +8,8 @@ var mod_jsonschema = require('jsonschema');
 var mod_yaml = require('js-yaml');
 var mod_coercions = require('./lib/coercions');
 
+var VError = require('verror');
+
 function Validator(options) {
   options = options || {};
   this.baseUrl = options.baseUrl;
@@ -164,13 +166,18 @@ Validator.prototype.validate = function (validation, object, options, callback) 
     '$ref': validation.schema
   };
 
-  var result = this.validator.validate(object, schema, {
-    propertyName: validation.propertyName,
-    preValidateProperty: validation.preValidateProperty
-  });
-
   var error = null;
-  if (result.errors.length) {
+
+  try {
+    var result = this.validator.validate(object, schema, {
+      propertyName: validation.propertyName,
+      preValidateProperty: validation.preValidateProperty
+    });
+  } catch (err) {
+    error = new VError(err, 'Failed to validate');
+  }
+
+  if (!error && result.errors.length) {
     error = new Error('Failed validation: ' + result.errors.map(function stacks(error) {
       return error.stack;
     }).join(', '));

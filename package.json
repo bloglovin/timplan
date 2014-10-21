@@ -17,8 +17,9 @@
     "node": "0.10.x"
   },
   "dependencies": {
+    "js-yaml": "~3.0.1",
     "jsonschema": "git://github.com/hugowetterberg/jsonschema.git#feature/pre-validate-property",
-    "js-yaml": "~3.0.1"
+    "verror": "^1.4.0"
   },
   "peerDependencies": {
     "hapi": "6.x.x"
