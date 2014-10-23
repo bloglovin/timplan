@@ -1,3 +1,12 @@
+### 0.5.3 (2014-10-23)
+
+
+#### Bug Fixes
+
+* **dependencies:** allow hapi 7.x ([65b9be6e](https://github.com/bloglovin/timplan/commit/65b9be6e281792edd3b369c656757f0580746958))
+* **main:** Handle validator exceptions ([b22baf79](https://github.com/bloglovin/timplan/commit/b22baf79599ed22094457a45cd92014f911e9245))
+
+
 ### 0.5.2 (2014-10-20)
 
 
