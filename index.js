@@ -133,7 +133,6 @@ Validator.prototype.payload = function (uri) {
 Validator.prototype.response = function(uri) {
   return this.schema(uri, {
     propertyName: 'response',
-    severity: 'warn'
   });
 };
 
@@ -141,7 +140,6 @@ Validator.prototype.schema = function (uri, options) {
   var validation = {
     propertyName: options.propertyName || options.definition,
     preValidateProperty: options.coerce ? this.coerceType : null,
-    severity: options.severity || 'error'
   };
   validation.schema = this.baseUrl ? mod_url.resolve(this.baseUrl, uri) : uri;
   if (options.definition) {
@@ -181,12 +179,6 @@ Validator.prototype.validate = function (validation, object, options, callback) 
     error = new Error('Failed validation: ' + result.errors.map(function stacks(error) {
       return error.stack;
     }).join(', '));
-  }
-
-  // Let validation errors slide if the severity level is 'warn'
-  if (error && validation.severity == 'warn') {
-    console.error(validation.propertyName, 'failed validation:', error.message, 'Schema:', validation.schema);
-    error = null;
   }
 
   callback(error);
