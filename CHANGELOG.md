@@ -1,3 +1,17 @@
+## 1.0.0 (2014-11-05)
+
+
+#### Features
+
+* **main:** remove severity setting ([70d9057b](https://github.com/bloglovin/timplan/commit/70d9057baa0d545e79f853dd0bbfc897647219ba))
+
+
+#### Breaking Changes
+
+* there is no longer a severity option in timplan itself. This will make response validation failures return a 500-error. Use the built in hapi route configuration `route.config.response.failAction = 'log’` instead.
+ ([70d9057b](https://github.com/bloglovin/timplan/commit/70d9057baa0d545e79f853dd0bbfc897647219ba))
+
+
 ### 0.5.3 (2014-10-23)
 
 
@@ -13,4 +27,3 @@
 #### Bug Fixes
 
 * **plugin:** properly register hapi plugin metadata ([a22a12e2](https://github.com/bloglovin/timplan/commit/a22a12e26ab513f979170f22250fc7b0a61210c2))
-
