@@ -126,13 +126,15 @@ Validator.prototype.query = function (uri) {
 Validator.prototype.payload = function (uri) {
   return this.schema(uri, {
     definition: 'payload',
-    propertyName: 'payload'
+    propertyName: 'payload',
+    coerce: true
   });
 };
 
 Validator.prototype.response = function(uri) {
   return this.schema(uri, {
     propertyName: 'response',
+    coerce: true
   });
 };
 
