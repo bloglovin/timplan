@@ -1,3 +1,11 @@
+## 1.1.0 (2015-01-12)
+
+
+#### Features
+
+* **coercion:** enable coercion for payload and response ([8dab49e0](https://github.com/bloglovin/timplan/commit/8dab49e0dc4554ecb1e2da61ad7974453e4c7c9d))
+
+
 ## 1.0.0 (2014-11-05)
 
 
