@@ -21,7 +21,7 @@ function Validator(options) {
     var value = instance[property];
 
     // Skip nulls and undefineds
-    if (value === null || typeof value == 'undefined') {
+    if (value === null || typeof value === 'undefined') {
       return;
     }
 
@@ -32,7 +32,7 @@ function Validator(options) {
 
       // Go through the declared types until we find something that we can
       // coerce the value into.
-      for (var i = 0; typeof coerced == 'undefined' && i < types.length; i++) {
+      for (var i = 0; coerced === undefined && i < types.length; i++) {
         // If we support coercion to this type
         if (mod_coercions[types[i]]) {
           // ...attempt it.
@@ -40,7 +40,7 @@ function Validator(options) {
         }
       }
       // If we got a successful coercion we modify the property of the instance.
-      if (typeof coerced != 'undefined') {
+      if (coerced !== undefined) {
         instance[property] = coerced;
       }
     }
@@ -167,9 +167,10 @@ Validator.prototype.validate = function (validation, object, options, callback) 
   };
 
   var error = null;
+  var result;
 
   try {
-    var result = this.validator.validate(object, schema, {
+    result = this.validator.validate(object, schema, {
       propertyName: validation.propertyName,
       preValidateProperty: validation.preValidateProperty
     });
@@ -192,7 +193,7 @@ exports.register = function (plugin, options, next) {
   next();
 };
 exports.register.attributes = {
-  pkg: require('./package'),
+  pkg: require('./package.json'),
 };
 
 exports.Validator = Validator;

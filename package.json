@@ -23,5 +23,17 @@
   },
   "peerDependencies": {
     "hapi": "6.x - 7.x"
+  },
+  "scripts": {
+    "test": "node -e \"require('grunt').tasks(['test']);\"",
+    "test-all": "node -e \"require('grunt').tasks(['test-all']);\"",
+    "prepush": "npm test"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "husky": "^0.6.2",
+    "istanbul": "^0.3.5",
+    "lintlovin": "^1.9.0",
+    "mocha": "^2.1.0"
   }
 }
