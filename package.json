@@ -22,7 +22,7 @@
     "verror": "^1.4.0"
   },
   "peerDependencies": {
-    "hapi": "6.x - 7.x"
+    "hapi": "6.x - 8.x"
   },
   "scripts": {
     "test": "node -e \"require('grunt').tasks(['test']);\"",

@@ -188,8 +188,8 @@ Validator.prototype.validate = function (validation, object, options, callback) 
 };
 
 // Register hapi plugin
-exports.register = function (plugin, options, next) {
-  plugin.expose('validator', new Validator(options));
+exports.register = function (server, options, next) {
+  server.expose('validator', new Validator(options));
   next();
 };
 exports.register.attributes = {
