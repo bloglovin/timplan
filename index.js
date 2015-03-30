@@ -52,8 +52,7 @@ Validator.prototype.addSchema = function (path) {
   if (mod_fs.existsSync(resolvedPath)) {
     var schema = require(resolvedPath);
     this.validator.addSchema(schema);
-  }
-  else {
+  } else {
     throw new Error('There is no schema file at "' + resolvedPath + '"');
   }
 };
@@ -74,8 +73,7 @@ Validator.prototype.addYamlSchema = function (path) {
     } catch (parseError) {
       throw new Error('Failed to parse yaml schema: ' + parseError.message);
     }
-  }
-  else {
+  } else {
     throw new Error('There is no schema file at "' + resolvedPath + '"');
   }
 };
@@ -131,7 +129,7 @@ Validator.prototype.payload = function (uri) {
   });
 };
 
-Validator.prototype.response = function(uri) {
+Validator.prototype.response = function (uri) {
   return this.schema(uri, {
     propertyName: 'response',
     coerce: true
