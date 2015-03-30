@@ -1,7 +1,7 @@
 {
   "name": "timplan",
   "description": "JSONSchema validation for hapi",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "author": "Hugo Wetterberg <hugo@wetterberg.nu>",
   "repository": "git://github.com/bloglovin/timplan",
   "homepage": "https://github.com/bloglovin/timplan",

@@ -1,3 +1,11 @@
+## 1.2.0 (2015-03-30)
+
+
+#### Features
+
+* **hapi:** add support for hapi 8 ([cb2c13c4](https://github.com/bloglovin/timplan/commit/cb2c13c48bf58227a4758c1c0f3e23c2bd967b9c))
+
+
 ## 1.1.0 (2015-01-12)
 
 
